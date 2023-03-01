@@ -1,12 +1,17 @@
 import "./App.css";
-import Navigation from "./pages/Navigation";
+import {Route, Routes} from "react-router-dom";
+import Home from "./pages/Home";
+import ProductDetail from "./pages/ProductDetail";
+import Basket from "./pages/Basket";
 
 function App() {
   return (
-    <div className="App">
-      <Navigation />
-      쇼핑페이지
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/product/:productId" element={<ProductDetail />} />
+      <Route path="/Basket" element={<Basket />} />
+      <Route />
+    </Routes>
   );
 }
 
