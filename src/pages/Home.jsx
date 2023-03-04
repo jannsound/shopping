@@ -2,21 +2,63 @@ import Navigation from "../components/Navigation";
 import ThemeButton from "../components/ThemeButtom";
 import ProductCard from "../components/ProductCard";
 import styled from "styled-components";
+import {mockTheme1Produdcts, mockTheme2Produdcts} from "../data/mockData";
+import {useEffect, useState} from "react";
 
 const Home = () => {
+  //다시 렌더링(UI를 그린다)되는 조건 값(state)
+  const [products, setProducts] = useState();
+
+  //조건에 의해서 실행되는 함수
+  useEffect(() => {
+    setTimeout(() => {
+      setProducts(mockTheme1Produdcts);
+    }, 1000);
+  }, []);
+
+  const onClickThemeButton = (themeId) => {
+    if (themeId === 1) {
+      setProducts(mockTheme1Produdcts);
+    } else if (mockTheme2Produdcts === 2) {
+      setProducts(mockTheme2Produdcts);
+    }
+  };
+
   return (
     <div>
       <div>
         <Navigation backStat={"none"} />
         <ThemeSection>
-          <ThemeButton themeName={"#겨울방한템"} />
-          <ThemeButton themeName={"#따순머그컵"} />
+          <ThemeButton
+            themeName={"#겨울방한템"}
+            onClick={() => onClickThemeButton(1)}
+          />
+          <ThemeButton
+            themeName={"#여름더워요"}
+            onClick={() => onClickThemeButton(2)}
+          />
         </ThemeSection>
         <GrayLine />
       </div>
 
       <ProductSection>
-        <ProductCard
+        {/* mockData list를 화면에 노출하자 */}
+        {/* {age<10? <div>당신은 "어린이"</div>: <div>당신은 "어른" </div>} */}
+
+        {/* 삼항연산자 */}
+        {products ? (
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.name}
+              description={product.description}
+              thumbnail={product.thumbnail}
+            />
+          ))
+        ) : (
+          <div>테마를 선택해주세요</div>
+        )}
+        {/* <ProductCard
           name={"비숑 블랙 머그잔"}
           discription={
             "쌀쌀한 날씨에 따뜻한 우유, 커피 한잔하기 좋은 블랙 & 화이트 비숑 머그잔입니다."
@@ -42,7 +84,7 @@ const Home = () => {
           thumbnail={
             "https://raw.githubusercontent.com/congchu/comento-shop-server/master/assets/images/product2.jpg"
           }
-        />
+        /> */}
       </ProductSection>
     </div>
   );
