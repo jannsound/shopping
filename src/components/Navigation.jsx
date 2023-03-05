@@ -19,7 +19,7 @@ const Back = styled.div`
   border-left: 2px solid #000000;
   transform: rotate(-45deg);
 
-  display: ${(prop) => prop.display || "block"};
+  display: ${(a) => a.display || "block"};
 `;
 
 const NameStyled = styled.div`
